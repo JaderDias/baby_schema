@@ -1,8 +1,8 @@
 use crate::dynamodb::DbSettings;
 use aws_sdk_dynamodb::model::AttributeValue;
-use chrono::offset::Utc;
-use chrono::DateTime;
+use chrono::{Utc, TimeZone};
 use rocket::http::ContentType;
+use chrono_tz::Europe::Amsterdam;
 use serde::{Deserialize, Serialize};
 use std::borrow::ToOwned;
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -12,7 +12,6 @@ pub struct Object {
     pub partition_key: String,
     pub sort_key: f64,
     pub resource: String,
-    pub utc: String,
 }
 
 #[derive(rocket::Responder)]
@@ -32,12 +31,10 @@ pub async fn handler(resource: String, db_settings: &rocket::State<DbSettings>) 
     let since_the_epoch = start
         .duration_since(UNIX_EPOCH)
         .expect("Time went backwards");
-    let datetime: DateTime<Utc> = start.into();
     let object = Object {
         partition_key: partition.to_owned(),
         sort_key: since_the_epoch.as_secs_f64(),
         resource,
-        utc: format!("{}", datetime.format("%a %b %d %T")),
     };
     let values = serde_dynamo::to_item(object).unwrap();
     crate::dynamodb::put_item(&db_settings.client, &db_settings.table_name, values)
@@ -71,9 +68,12 @@ pub async fn handler(resource: String, db_settings: &rocket::State<DbSettings>) 
       <table>"
         .to_owned();
     for item in items {
-        let utc = item.get("utc").unwrap().as_s().unwrap();
+        let sort_key = item.get("sort_key").unwrap().as_n().unwrap();
+        let epoch_seconds : f64 = sort_key.parse().unwrap();
+        let utc = Utc.timestamp_opt(epoch_seconds.round() as i64, 0u32).unwrap();
+        let local_time = utc.with_timezone(&chrono_tz::Europe::Amsterdam);
         let resource = item.get("resource").unwrap().as_s().unwrap();
-        html.push_str(format!("<tr><td>{}</td><td>{}</td></tr>", utc, resource).as_str());
+        html.push_str(format!("<tr><td>{}</td><td>{}</td></tr>", local_time.format("%a %b %d %T"), resource).as_str());
     }
 
     html.push_str("</table></div></section></body></html>");
