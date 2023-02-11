@@ -1,0 +1,27 @@
+[advisories]
+vulnerability = "deny"
+unmaintained = "deny"
+yanked = "deny"
+notice = "deny"
+
+[licenses]
+unlicensed = "deny"
+copyleft = "allow"
+allow = [
+    "MIT",
+    "Unicode-DFS-2016",
+    "Apache-2.0",
+    "Zlib",
+    "ISC",
+    "BSD-3-Clause"
+]
+default = "deny"
+
+[bans]
+multiple-versions = "warn"
+wildcards = "deny"
+highlight = "all"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"

@@ -1,0 +1,70 @@
+[
+  {
+    "request": {
+      "version": "2.0",
+      "routeKey": "$default",
+      "rawPath": "/?resource=check",
+      "rawQueryString": "",
+      "cookies": [],
+      "headers": {},
+      "requestContext": {
+        "accountId": "123456789012",
+        "apiId": "api-id",
+        "authentication": {
+          "clientCert": {
+            "clientCertPem": "CERT_CONTENT",
+            "subjectDN": "www.example.com",
+            "issuerDN": "Example issuer",
+            "serialNumber": "a1:a1:a1:a1:a1:a1:a1:a1:a1:a1:a1:a1:a1:a1:a1:a1",
+            "validity": {
+              "notBefore": "May 28 12:30:02 2019 GMT",
+              "notAfter": "Aug  5 09:36:04 2021 GMT"
+            }
+          }
+        },
+        "authorizer": {
+          "jwt": {
+            "claims": {
+              "claim1": "value1",
+              "claim2": "value2"
+            },
+            "scopes": [
+              "scope1",
+              "scope2"
+            ]
+          }
+        },
+        "domainName": "id.execute-api.us-east-1.amazonaws.com",
+        "domainPrefix": "id",
+        "http": {
+          "method": "GET",
+          "path": "/",
+          "protocol": "HTTP/1.1",
+          "sourceIp": "192.0.2.1",
+          "userAgent": "agent"
+        },
+        "requestId": "id",
+        "routeKey": "$default",
+        "stage": "$default",
+        "time": "12/Mar/2020:19:03:58 +0000",
+        "timeEpoch": 1583348638390
+      },
+      "pathParameters": {
+        "parameter1": "value1"
+      },
+      "isBase64Encoded": false,
+      "stageVariables": {
+        "stageVariable1": "value1",
+        "stageVariable2": "value2"
+      }
+    },
+    "expected_response": {
+      "body": "<!DOCTYPE html>\n<html>\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\t  <title>Baby Schema</title>\n  </head>\n  <body>\n  <section class=\"section\">\n    <div class=\"container\">\n      <h1 class=\"title\">Baby Schema</h1><ul><li>{\"partition\": N(\"351197000\"), \"resource\": S(\"check\")}</li></ul></div></section></body></html>",
+      "cookies": [],
+      "headers": {"content-type": "text/plain; charset=utf-8"},
+      "isBase64Encoded": false,
+      "multiValueHeaders": {},
+      "statusCode": 200
+    }
+  }
+]
