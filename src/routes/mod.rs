@@ -1,8 +1,8 @@
 use crate::dynamodb::DbSettings;
 use aws_sdk_dynamodb::model::AttributeValue;
-use chrono::{Utc, TimeZone};
-use rocket::http::ContentType;
+use chrono::{TimeZone, Utc};
 use chrono_tz::Europe::Amsterdam;
+use rocket::http::ContentType;
 use serde::{Deserialize, Serialize};
 use std::borrow::ToOwned;
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -23,7 +23,7 @@ pub fn routes() -> Vec<rocket::Route> {
     rocket::routes![handler]
 }
 
-const partition: &str = "Baby1";
+const PARTITION: &str = "Baby1";
 
 #[rocket::get("/?<resource>")]
 pub async fn handler(resource: String, db_settings: &rocket::State<DbSettings>) -> BabySchema {
@@ -32,7 +32,7 @@ pub async fn handler(resource: String, db_settings: &rocket::State<DbSettings>) 
         .duration_since(UNIX_EPOCH)
         .expect("Time went backwards");
     let object = Object {
-        partition_key: partition.to_owned(),
+        partition_key: PARTITION.to_owned(),
         sort_key: since_the_epoch.as_secs_f64(),
         resource,
     };
@@ -46,7 +46,7 @@ pub async fn handler(resource: String, db_settings: &rocket::State<DbSettings>) 
         .table_name(&db_settings.table_name)
         .key_condition_expression("#partition_key = :valueToMatch")
         .expression_attribute_names("#partition_key", "partition_key")
-        .expression_attribute_values(":valueToMatch", AttributeValue::S(partition.to_owned()))
+        .expression_attribute_values(":valueToMatch", AttributeValue::S(PARTITION.to_owned()))
         .limit(20)
         .scan_index_forward(false)
         .send()
@@ -69,11 +69,20 @@ pub async fn handler(resource: String, db_settings: &rocket::State<DbSettings>) 
         .to_owned();
     for item in items {
         let sort_key = item.get("sort_key").unwrap().as_n().unwrap();
-        let epoch_seconds : f64 = sort_key.parse().unwrap();
-        let utc = Utc.timestamp_opt(epoch_seconds.round() as i64, 0u32).unwrap();
+        let epoch_seconds: f64 = sort_key.parse().unwrap();
+        let utc = Utc
+            .timestamp_opt(epoch_seconds.round() as i64, 0u32)
+            .unwrap();
         let local_time = utc.with_timezone(&chrono_tz::Europe::Amsterdam);
         let resource = item.get("resource").unwrap().as_s().unwrap();
-        html.push_str(format!("<tr><td>{}</td><td>{}</td></tr>", local_time.format("%a %b %d %T"), resource).as_str());
+        html.push_str(
+            format!(
+                "<tr><td>{}</td><td>{}</td></tr>",
+                local_time.format("%a %b %d %T"),
+                resource
+            )
+            .as_str(),
+        );
     }
 
     html.push_str("</table></div></section></body></html>");
