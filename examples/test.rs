@@ -29,7 +29,7 @@ async fn main() {
     let args: Vec<String> = env::args().collect();
     let test_target_url = &args[1];
     if test_target_url.contains("localhost") {
-        let db_client = rust_lambda::dynamodb::get_local_client(DB_URL.to_owned()).await;
+        let db_client = baby_schema::dynamodb::get_local_client(DB_URL.to_owned()).await;
         create_table_if_not_exists(&db_client).await;
     }
 
@@ -148,7 +148,7 @@ async fn create_table_if_not_exists(client: &aws_sdk_dynamodb::Client) {
         return;
     }
 
-    let a_name: String = rust_lambda::dynamodb::PARTITION_KEY_NAME.to_owned();
+    let a_name: String = baby_schema::dynamodb::PARTITION_KEY_NAME.to_owned();
 
     let ad = AttributeDefinition::builder()
         .attribute_name(&a_name)

@@ -1,11 +1,10 @@
-use aws_sdk_dynamodb::error::{GetItemError, PutItemError};
+use aws_sdk_dynamodb::error::PutItemError;
 use aws_sdk_dynamodb::model::AttributeValue;
 use aws_sdk_dynamodb::types::SdkError;
 use aws_sdk_dynamodb::Client;
 
-pub const PARTITION_KEY_NAME: &str = "partition";
+pub const PARTITION_KEY_NAME: &str = "partition_key";
 
-pub type GetItemResult = Result<aws_sdk_dynamodb::output::GetItemOutput, SdkError<GetItemError>>;
 pub type PutItemResult = Result<aws_sdk_dynamodb::output::PutItemOutput, SdkError<PutItemError>>;
 
 pub struct DbSettings {
@@ -19,14 +18,9 @@ pub struct DbSettings {
 pub async fn put_item<S: std::hash::BuildHasher>(
     client: &Client,
     dynamodb_table_name: &str,
-    partition: u64,
     values: std::collections::HashMap<String, AttributeValue, S>,
 ) -> PutItemResult {
-    let value = AttributeValue::N(partition.to_string());
-    let mut table = client
-        .put_item()
-        .table_name(dynamodb_table_name)
-        .item(PARTITION_KEY_NAME, value);
+    let mut table = client.put_item().table_name(dynamodb_table_name);
     for (key, value) in values {
         table = table.item(key, value);
     }

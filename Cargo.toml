@@ -1,5 +1,5 @@
 [package]
-name = "rust_lambda"
+name = "baby_schema"
 description = "Example minimal serverless function in Rust using AWS infrastructure"
 repository = "https://github.com/JaderDias/rust_dynamodb_local"
 categories = ["webservice"]
@@ -22,6 +22,7 @@ license-file = "LICENSE"
 [dependencies]
 aws-config = "0.54.1"
 aws-sdk-dynamodb = "0.24.0"
+chrono = "0.4.19"
 lambda-web = { version = "0.2.1", features = ["rocket05"] }
 rocket = { version = "0.5.0-rc.2", features = ["json"] }
 serde = { version = "1.0.152", features = ["derive"] }
