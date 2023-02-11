@@ -6,14 +6,15 @@ notice = "deny"
 
 [licenses]
 unlicensed = "deny"
-copyleft = "allow"
+copyleft = "deny"
 allow = [
     "MIT",
     "Unicode-DFS-2016",
     "Apache-2.0",
     "Zlib",
     "ISC",
-    "BSD-3-Clause"
+    "BSD-3-Clause",
+    "ring"
 ]
 default = "deny"
 
