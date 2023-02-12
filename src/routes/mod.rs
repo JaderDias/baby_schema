@@ -1,7 +1,6 @@
 use crate::dynamodb::DbSettings;
 use aws_sdk_dynamodb::model::AttributeValue;
 use chrono::{TimeZone, Utc};
-use chrono_tz::Europe::Amsterdam;
 use rocket::http::ContentType;
 use serde::{Deserialize, Serialize};
 use std::borrow::ToOwned;
@@ -27,19 +26,22 @@ const PARTITION: &str = "Baby1";
 
 #[rocket::get("/?<resource>")]
 pub async fn handler(resource: String, db_settings: &rocket::State<DbSettings>) -> BabySchema {
-    let start = SystemTime::now();
-    let since_the_epoch = start
-        .duration_since(UNIX_EPOCH)
-        .expect("Time went backwards");
-    let object = Object {
-        partition_key: PARTITION.to_owned(),
-        sort_key: since_the_epoch.as_secs_f64(),
-        resource,
-    };
-    let values = serde_dynamo::to_item(object).unwrap();
-    crate::dynamodb::put_item(&db_settings.client, &db_settings.table_name, values)
-        .await
-        .unwrap();
+    if resource != "check" {
+        let start = SystemTime::now();
+        let since_the_epoch = start
+            .duration_since(UNIX_EPOCH)
+            .expect("Time went backwards");
+        let object = Object {
+            partition_key: PARTITION.to_owned(),
+            sort_key: since_the_epoch.as_secs_f64(),
+            resource,
+        };
+        let values = serde_dynamo::to_item(object).unwrap();
+        crate::dynamodb::put_item(&db_settings.client, &db_settings.table_name, values)
+            .await
+            .unwrap();
+    }
+
     let response = db_settings
         .client
         .query()
@@ -70,6 +72,7 @@ pub async fn handler(resource: String, db_settings: &rocket::State<DbSettings>) 
     for item in items {
         let sort_key = item.get("sort_key").unwrap().as_n().unwrap();
         let epoch_seconds: f64 = sort_key.parse().unwrap();
+        #[allow(clippy::cast_possible_truncation)]
         let utc = Utc
             .timestamp_opt(epoch_seconds.round() as i64, 0u32)
             .unwrap();

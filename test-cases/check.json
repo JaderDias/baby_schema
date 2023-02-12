@@ -59,9 +59,9 @@
       }
     },
     "expected_response": {
-      "body": "<!DOCTYPE html>\n<html>\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\t  <title>Baby Schema</title>\n  </head>\n  <body>\n  <section class=\"section\">\n    <div class=\"container\">\n      <h1 class=\"title\">Baby Schema</h1><ul><li>{\"partition\": N(\"351197000\"), \"resource\": S(\"check\")}</li></ul></div></section></body></html>",
+      "body": "<!DOCTYPE html>\n<html>\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\t  <title>Baby Schema</title>\n  </head>\n  <body>\n  <section class=\"section\">\n    <div class=\"container\">\n      <h1 class=\"title\">Baby Schema</h1><table></table></div></section></body></html>",
       "cookies": [],
-      "headers": {"content-type": "text/plain; charset=utf-8"},
+      "headers": {"content-type": "text/html; charset=utf-8"},
       "isBase64Encoded": false,
       "multiValueHeaders": {},
       "statusCode": 200
