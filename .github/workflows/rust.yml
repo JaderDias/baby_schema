@@ -1,10 +1,9 @@
 name: Rust
 
 on:
-  push:
-    branches: [ "**" ]
+  push: # Comment this line to trigger action only on pull-requests (not recommended if you don't pay for GH Actions)
   pull_request:
-    branches: [ "**" ]
+    branches: [ main ]
 
 env:
   CARGO_TERM_COLOR: always
