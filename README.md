@@ -1,5 +1,5 @@
-[![build status](https://github.com/JaderDias/baby_schema/workflows/Rust/badge.svg)](https://github.com/JaderDias/baby_schema/actions?query=workflow%3ARust)
 # baby_schema
+[![build status](https://github.com/JaderDias/baby_schema/workflows/Rust/badge.svg)](https://github.com/JaderDias/baby_schema/actions?query=workflow%3ARust)
 Keep track of your baby schedule using AWS Lambda, Rust and DynamoDb
 
 ## Supported development hosts
