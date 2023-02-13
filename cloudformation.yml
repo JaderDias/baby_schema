@@ -63,6 +63,7 @@ Resources:
       Code:
         S3Bucket: !Ref "LambdaCodeBucket"
         S3Key: !Ref "LambdaCodeObjectKey"
+      ReservedConcurrentExecutions: 1 # Adding concurrency limits can prevent a rapid spike in usage and costs.
       Handler: "function.handler"
       Role: !GetAtt ["LambdaExecutionRole", "Arn"]
       Runtime: "provided.al2"
