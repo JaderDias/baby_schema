@@ -38,7 +38,3 @@ on another terminal
 ```bash
 ./run_test.sh
 ```
-
-## Run tests as GitHub actions
-
-.github/workflows/rust.yml

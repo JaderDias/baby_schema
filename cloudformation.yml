@@ -77,3 +77,4 @@ Resources:
       TargetFunctionArn: !GetAtt ["LambdaFunction", "Arn"]
       Cors:
         AllowOrigins: [ '*' ]
+
