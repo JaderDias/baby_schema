@@ -4,6 +4,7 @@ Keep track of your baby schedule using AWS Lambda, Rust and DynamoDb
 [![build status](https://github.com/JaderDias/baby_schema/workflows/Rust/badge.svg)](https://github.com/JaderDias/baby_schema/actions?query=workflow%3ARust)
 [![lint status](https://github.com/JaderDias/baby_schema/workflows/Linter/badge.svg)](https://github.com/JaderDias/baby_schema/actions?query=workflow%3ALinter)
 [![dependencies status](https://github.com/JaderDias/baby_schema/workflows/Dependencies/badge.svg)](https://github.com/JaderDias/baby_schema/actions?query=workflow%3ADependencies)
+[![dependency status](https://deps.rs/repo/github/JaderDias/baby_schema/status.svg)](https://deps.rs/repo/github/JaderDias/baby_schema)
 ## Supported development hosts
 
 * Linux
