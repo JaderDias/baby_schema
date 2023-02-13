@@ -13,5 +13,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: xt0rted/markdownlint-problem-matcher@v2
-      - run: markdownlint **/*.md --ignore node_modules
+      - name: Lint changelog file
+        uses: docker://avtodev/markdown-lint:v1 # fastest way
+        with:
+          rules: '/lint/rules/changelog.js'
+          config: '/lint/config/changelog.yml'
+          args: './*.md'
