@@ -3,10 +3,10 @@ name: Lint CloudFormation Templates
 on:
   pull_request:
     paths:
-      - '*.yml'
+      - 'cloudformation.yml'
   push:
     paths:
-      - '*.yml'
+      - 'cloudformation.yml'
 
 jobs:
   cloudformation-linter:
@@ -22,4 +22,4 @@ jobs:
       - name: Print the Cloud Formation Linter Version & run Linter.
         run: |
           cfn-lint --version
-          cfn-lint -t ./template.yml
+          cfn-lint -t ./cloudformation.yml
