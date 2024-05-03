@@ -36,7 +36,7 @@ uuid = { version = "1.2.2", features = ["v4"] }
 [dev-dependencies]
 aws_lambda_events = "0.7.3"
 regex = "1.7.1"
-reqwest = { version = "0.11.14", default-features = false, features = [
+reqwest = { version = "0.12.4", default-features = false, features = [
     "rustls-tls",
 ] }
 tokio = { version = "1", features = ["macros"] }
