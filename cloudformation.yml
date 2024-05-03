@@ -66,7 +66,7 @@ Resources:
       ReservedConcurrentExecutions: 1 # Adding concurrency limits can prevent a rapid spike in usage and costs.
       Handler: "function.handler"
       Role: !GetAtt ["LambdaExecutionRole", "Arn"]
-      Runtime: "provided.al2"
+      Runtime: "provided.al2023"
       Environment:
         Variables:
           CUSTOM_DOMAIN: "example.com"

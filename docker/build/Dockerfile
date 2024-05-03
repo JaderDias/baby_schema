@@ -1,4 +1,4 @@
-FROM amazonlinux:2
+FROM amazonlinux:2023
 
 # gcc is required to build ring, one of aws-config dependencies
 RUN yum update -y \
