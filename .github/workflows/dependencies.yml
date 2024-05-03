@@ -17,7 +17,7 @@ jobs:
   check-advisories:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: cargo install cargo-deny
       - name: Check for security advisories and unmaintained crates
         run: cargo deny check advisories
@@ -25,7 +25,7 @@ jobs:
   check-bans:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: cargo install cargo-deny
       - name: Check for banned and duplicated dependencies
         run: cargo deny check bans
@@ -33,7 +33,7 @@ jobs:
   check-licenses:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: cargo install cargo-deny
       - name: Check for unauthorized licenses
         run: cargo deny check licenses
@@ -41,7 +41,7 @@ jobs:
   check-sources:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: cargo install cargo-deny
       - name: Checked for unauthorized crate sources
         run: cargo deny check sources
@@ -49,20 +49,20 @@ jobs:
   check-security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: cargo audit
 
   check-freshness:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: cargo outdated
       - run: cargo outdated --depth 1 --exit-code 1
 
   check-unused:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: rustup toolchain install nightly --component miri
       - run: rustup override set nightly
       - name: Cache dependencies

@@ -12,13 +12,13 @@ jobs:
   check-code-format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: cargo fmt --all -- --check
 
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Cache dependencies
         uses: Swatinem/rust-cache@v2
       - name: Run database
