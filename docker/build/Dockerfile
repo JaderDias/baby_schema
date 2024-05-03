@@ -7,9 +7,7 @@ RUN yum update -y \
     && yum clean all
 
 # Create a new user named 'user' and set up the working directory
-RUN useradd -m user \
-    && mkdir /volume \
-    && chown user:user /volume
+RUN useradd -m user
 
 # Switch to non-root user
 USER user
