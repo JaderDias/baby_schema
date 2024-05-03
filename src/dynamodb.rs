@@ -1,6 +1,6 @@
-use aws_sdk_dynamodb::operation::put_item::{PutItemOutput, PutItemError};
-use aws_sdk_dynamodb::types::AttributeValue;
 use aws_sdk_dynamodb::error::SdkError;
+use aws_sdk_dynamodb::operation::put_item::{PutItemError, PutItemOutput};
+use aws_sdk_dynamodb::types::AttributeValue;
 use aws_sdk_dynamodb::Client;
 
 pub const PARTITION_KEY_NAME: &str = "partition_key";

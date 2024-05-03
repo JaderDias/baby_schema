@@ -136,10 +136,7 @@ fn assert_body_matches(test: &TestCase, actual_body_text: &String) {
 async fn table_exists(client: &aws_sdk_dynamodb::Client, table: &str) -> bool {
     let table_list = client.list_tables().send().await.unwrap();
     println!("tables {table_list:?}");
-    table_list
-        .table_names()
-        .as_ref()
-        .contains(&table.into())
+    table_list.table_names().as_ref().contains(&table.into())
 }
 
 async fn create_table_if_not_exists(client: &aws_sdk_dynamodb::Client) {
