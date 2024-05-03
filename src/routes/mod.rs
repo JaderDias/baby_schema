@@ -1,5 +1,5 @@
 use crate::dynamodb::DbSettings;
-use aws_sdk_dynamodb::model::AttributeValue;
+use aws_sdk_dynamodb::types::AttributeValue;
 use chrono::{TimeZone, Utc};
 use rocket::http::ContentType;
 use serde::{Deserialize, Serialize};
@@ -54,7 +54,7 @@ pub async fn handler(resource: String, db_settings: &rocket::State<DbSettings>) 
         .send()
         .await
         .unwrap();
-    let items = response.items().unwrap();
+    let items = response.items();
 
     let mut html = "<!DOCTYPE html>
 <html>
