@@ -1,7 +1,7 @@
 use aws_lambda_events::apigw::ApiGatewayV2httpRequest;
 use aws_lambda_events::apigw::ApiGatewayV2httpResponse;
 use aws_lambda_events::encodings::Body;
-use aws_sdk_dynamodb::model::{
+use aws_sdk_dynamodb::types::{
     AttributeDefinition, KeySchemaElement, KeyType, ProvisionedThroughput, ScalarAttributeType,
 };
 use regex::Regex;
@@ -139,7 +139,6 @@ async fn table_exists(client: &aws_sdk_dynamodb::Client, table: &str) -> bool {
     table_list
         .table_names()
         .as_ref()
-        .unwrap()
         .contains(&table.into())
 }
 
@@ -154,27 +153,32 @@ async fn create_table_if_not_exists(client: &aws_sdk_dynamodb::Client) {
     let pad = AttributeDefinition::builder()
         .attribute_name(partition_key)
         .attribute_type(ScalarAttributeType::S)
-        .build();
+        .build()
+        .expect("failed to build attribute partition_key");
 
     let sad = AttributeDefinition::builder()
         .attribute_name(sort_key)
         .attribute_type(ScalarAttributeType::N)
-        .build();
+        .build()
+        .expect("failed to build attribute sort_key");
 
     let pks = KeySchemaElement::builder()
         .attribute_name(partition_key)
         .key_type(KeyType::Hash)
-        .build();
+        .build()
+        .expect("failed to build KeySchemaElement partition_key");
 
     let sks = KeySchemaElement::builder()
         .attribute_name(sort_key)
         .key_type(KeyType::Range)
-        .build();
+        .build()
+        .expect("failed to build KeySchemaElement sort_key");
 
     let pt = ProvisionedThroughput::builder()
         .read_capacity_units(10)
         .write_capacity_units(5)
-        .build();
+        .build()
+        .expect("failed to build provisioned throughput");
 
     client
         .create_table()

@@ -1,11 +1,11 @@
-use aws_sdk_dynamodb::error::PutItemError;
-use aws_sdk_dynamodb::model::AttributeValue;
-use aws_sdk_dynamodb::types::SdkError;
+use aws_sdk_dynamodb::operation::put_item::{PutItemOutput, PutItemError};
+use aws_sdk_dynamodb::types::AttributeValue;
+use aws_sdk_dynamodb::error::SdkError;
 use aws_sdk_dynamodb::Client;
 
 pub const PARTITION_KEY_NAME: &str = "partition_key";
 
-pub type PutItemResult = Result<aws_sdk_dynamodb::output::PutItemOutput, SdkError<PutItemError>>;
+pub type PutItemResult = Result<PutItemOutput, SdkError<PutItemError>>;
 
 pub struct DbSettings {
     pub client: Client,
