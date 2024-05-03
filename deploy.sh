@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 S3_BUCKET=${1}
 if [ -z "$S3_BUCKET" ]
 then

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 docker-compose -f docker/test/docker-compose.yml kill \
 && docker-compose -f docker/test/docker-compose.yml up \
   --build \
