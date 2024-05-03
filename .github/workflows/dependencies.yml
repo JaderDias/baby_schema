@@ -1,11 +1,8 @@
 name: Dependencies
 
 on:
-  pull_request:
-    paths:
-      - '**/Cargo.toml'
-      - 'deny.toml'
   push:
+  pull_request:
     paths:
       - '**/Cargo.toml'
       - 'deny.toml'
